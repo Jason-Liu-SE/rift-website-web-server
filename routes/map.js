@@ -6,8 +6,11 @@ const mapRouter = express.Router();
 
 dotenv.config();
 
-mapRouter.get("/viewer", (req, res) => {
-	res.sendFile(path.join(__dirname, "../pannellum/pannellum.htm"));
+mapRouter.use(express.static(path.join(__dirname, "../output map test")));
+
+mapRouter.get("/test", (req, res) => {
+	res.sendFile(path.join(__dirname, "../output map test/index.html"));
+	console.log("test");
 });
 
 module.exports = mapRouter;
