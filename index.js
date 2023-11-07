@@ -1,12 +1,11 @@
 const express = require("express");
-const path = require("path");
+const mapRouter = require("./routes/map");
+
 const app = express();
 const port = 3000;
 
-app.get("/map-viewer", (req, res) => {
-	res.sendFile(path.join(__dirname, "./pannellum/pannellum.htm"));
-});
+app.use("/map", mapRouter);
 
 app.listen(port, () => {
-	console.log(`Example app listening on port ${port}`);
+	console.log(`Listening on port ${port}`);
 });
