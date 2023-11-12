@@ -1,20 +1,17 @@
-const express = require("express");
 const dotenv = require("dotenv");
-const mongoose = require("mongoose");
+const express = require("express");
 const mapRouter = require("./routes/map");
+const newsRouter = require("./routes/news");
+const downloadsRouter = require("./routes/downloads");
+const galleryRouter = require("./routes/gallery");
+const mongoManger = require("./helpers/mongoManager.js");
 
 dotenv.config();
 
 const app = express();
-const path = require("path");
-const newsRouter = require("./routes/news");
-const downloadsRouter = require("./routes/downloads");
-const galleryRouter = require("./routes/gallery");
 const port = process.env.PORT || 4000;
 
-mongoose.connect(process.env.MONGODB_CONNECTION_STRING).then(() => {
-	console.log("Connected to MongoDB");
-});
+mongoManger.connect();
 
 app.use("/map", mapRouter);
 app.use("/news", newsRouter);
