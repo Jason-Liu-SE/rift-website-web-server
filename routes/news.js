@@ -1,13 +1,14 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const mongoManager = require("../helpers/mongoManager.js");
 
-const path = require("path");
 const newsRouter = express.Router();
 
 dotenv.config();
 
-newsRouter.get("/test", (req, res) => {
-	res.send({ msg: "news router" });
+newsRouter.get("/get-items", async (req, res) => {
+	const data = await mongoManager.getNewsItems();
+	res.send({ data: data });
 });
 
 module.exports = newsRouter;

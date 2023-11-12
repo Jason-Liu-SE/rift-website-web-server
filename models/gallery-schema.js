@@ -7,6 +7,6 @@ const gallerySchema = new mongoose.Schema({
 
 const db = mongoose.connection.useDb("gallery");
 
-exports.SeasonOneModel = db.model("season-1", gallerySchema);
-exports.SeasonTwoModel = db.model("season-2", gallerySchema);
-exports.SeasonThreeModel = db.model("season-3", gallerySchema);
+exports.getModel = (modelName) => {
+	return db.model(modelName, gallerySchema);
+};

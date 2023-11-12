@@ -1,13 +1,28 @@
 const express = require("express");
 const dotenv = require("dotenv");
+const mongoManager = require("../helpers/mongoManager.js");
 
-const path = require("path");
 const downloadsRouter = express.Router();
 
 dotenv.config();
 
-downloadsRouter.get("/test", (req, res) => {
-	res.send({ msg: "downloads router" });
+downloadsRouter.get("/get-collection", async (req, res) => {
+	const collectionName = req.query.collection ? req.query.collection : "";
+
+	if (collectionName === "") {
+		res.send({
+			data: [],
+			error: "ERROR: a collection name has not been passed with the endpoint call",
+		});
+	} else {
+		const data = await mongoManager.getDownloadCollection(collectionName);
+		res.send({ data: data });
+	}
+});
+
+downloadsRouter.get("/get-all", async (req, res) => {
+	const data = await mongoManager.getAllDownloadCollections();
+	res.send({ data: data });
 });
 
 module.exports = downloadsRouter;
