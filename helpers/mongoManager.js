@@ -75,13 +75,20 @@ exports.countGalleryCollectionItems = async (collectionName) => {
 	return galleryCollectionCount;
 };
 
-exports.getNewsItems = async () => {
+// limit = -1 implies that no limit was specified. Assumed all documents are desired
+exports.getNewsItems = async (startIndex, limit) => {
 	const model = newsSchema.model;
 	let newsItems;
 
 	try {
+		if (limit === -1) {
+			await model.countDocuments({}).then((data) => (limit = data));
+		}
+
 		await model
 			.find({})
+			.skip(startIndex)
+			.limit(limit)
 			.then(async (data) => {
 				newsItems = data;
 			})
