@@ -102,6 +102,26 @@ exports.getNewsItems = async (startIndex, limit) => {
 	return newsItems;
 };
 
+exports.countNewsItems = async () => {
+	const model = newsSchema.model;
+	let count;
+
+	try {
+		await model
+			.countDocuments({})
+			.then(async (data) => {
+				count = data;
+			})
+			.catch((e) =>
+				console.log("ERROR: could not fetch news item count.'", e)
+			);
+	} catch (e) {
+		console.log(e);
+	}
+
+	return count;
+};
+
 exports.getDownloadCollection = async (collectionName) => {
 	const model = downloadsSchema.getModel(collectionName);
 	let downloadCollection;
