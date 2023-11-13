@@ -11,7 +11,7 @@ newsRouter.get("/get-items", async (req, res) => {
 	const limit = req.query.limit ? req.query.limit : -1;
 
 	const data = await mongoManager.getNewsItems(startIndex, limit);
-	res.send({ data: data });
+	res.send(data);
 });
 
 newsRouter.get("/count-items", async (req, res) => {

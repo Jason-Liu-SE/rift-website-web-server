@@ -13,7 +13,6 @@ galleryRouter.get("/get-collection", async (req, res) => {
 
 	if (collectionName === "") {
 		res.send({
-			data: [],
 			error: "ERROR: a collection name has not been passed with the endpoint call",
 		});
 	} else {
@@ -22,7 +21,7 @@ galleryRouter.get("/get-collection", async (req, res) => {
 			startIndex,
 			limit
 		);
-		res.send({ data: data });
+		res.send(data);
 	}
 });
 
@@ -31,7 +30,6 @@ galleryRouter.get("/count-collection-items", async (req, res) => {
 
 	if (collectionName === "") {
 		res.send({
-			data: [],
 			error: "ERROR: a collection name has not been passed with the endpoint call",
 		});
 	} else {

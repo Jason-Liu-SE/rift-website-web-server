@@ -16,13 +16,13 @@ downloadsRouter.get("/get-collection", async (req, res) => {
 		});
 	} else {
 		const data = await mongoManager.getDownloadCollection(collectionName);
-		res.send({ data: data });
+		res.send(data);
 	}
 });
 
 downloadsRouter.get("/get-all", async (req, res) => {
 	const data = await mongoManager.getAllDownloadCollections();
-	res.send({ data: data });
+	res.send(data);
 });
 
 module.exports = downloadsRouter;
