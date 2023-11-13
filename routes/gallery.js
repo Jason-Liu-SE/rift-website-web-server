@@ -20,4 +20,20 @@ galleryRouter.get("/get-collection", async (req, res) => {
 	}
 });
 
+galleryRouter.get("/count-collection-items", async (req, res) => {
+	const collectionName = req.query.collection ? req.query.collection : "";
+
+	if (collectionName === "") {
+		res.send({
+			data: [],
+			error: "ERROR: a collection name has not been passed with the endpoint call",
+		});
+	} else {
+		const data = await mongoManager.countGalleryCollectionItems(
+			collectionName
+		);
+		res.send({ count: data });
+	}
+});
+
 module.exports = galleryRouter;

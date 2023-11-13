@@ -21,33 +21,68 @@ exports.getGalleryCollection = async (collectionName) => {
 	const model = gallerySchema.getModel(collectionName);
 	let galleryCollection;
 
-	await model
-		.find({})
-		.then(async (data) => {
-			galleryCollection = data;
-		})
-		.catch((e) =>
-			console.log(
-				"ERROR: could not fetch gallery collection '" +
-					collectionName +
-					"': ",
-				e
-			)
-		);
+	try {
+		await model
+			.find({})
+			.then(async (data) => {
+				galleryCollection = data;
+			})
+			.catch((e) =>
+				console.log(
+					"ERROR: could not fetch gallery collection '" +
+						collectionName +
+						"': ",
+					e
+				)
+			);
+	} catch (e) {
+		console.log(e);
+	}
 
 	return galleryCollection;
+};
+
+exports.countGalleryCollectionItems = async (collectionName) => {
+	const model = gallerySchema.getModel(collectionName);
+	let galleryCollectionCount;
+
+	try {
+		await model
+			.countDocuments({})
+			.then(async (data) => {
+				galleryCollectionCount = data;
+			})
+			.catch((e) =>
+				console.log(
+					"ERROR: could not fetch gallery collection '" +
+						collectionName +
+						"' count: ",
+					e
+				)
+			);
+	} catch (e) {
+		console.log(e);
+	}
+
+	return galleryCollectionCount;
 };
 
 exports.getNewsItems = async () => {
 	const model = newsSchema.model;
 	let newsItems;
 
-	await model
-		.find({})
-		.then(async (data) => {
-			newsItems = data;
-		})
-		.catch((e) => console.log("ERROR: could not fetch news items: ", e));
+	try {
+		await model
+			.find({})
+			.then(async (data) => {
+				newsItems = data;
+			})
+			.catch((e) =>
+				console.log("ERROR: could not fetch news items: ", e)
+			);
+	} catch (e) {
+		console.log(e);
+	}
 
 	return newsItems;
 };
@@ -56,19 +91,23 @@ exports.getDownloadCollection = async (collectionName) => {
 	const model = downloadsSchema.getModel(collectionName);
 	let downloadCollection;
 
-	await model
-		.find({})
-		.then(async (data) => {
-			downloadCollection = data;
-		})
-		.catch((e) =>
-			console.log(
-				"ERROR: could not fetch download collection '" +
-					collectionName +
-					"': ",
-				e
-			)
-		);
+	try {
+		await model
+			.find({})
+			.then(async (data) => {
+				downloadCollection = data;
+			})
+			.catch((e) =>
+				console.log(
+					"ERROR: could not fetch download collection '" +
+						collectionName +
+						"': ",
+					e
+				)
+			);
+	} catch (e) {
+		console.log(e);
+	}
 
 	return downloadCollection;
 };
@@ -97,7 +136,10 @@ exports.getAllDownloadCollections = async () => {
 				}
 			});
 	} catch (e) {
-		console.log("ERROR: could not fetch all of the download collections");
+		console.log(
+			"ERROR: could not fetch all of the download collections",
+			e
+		);
 	}
 
 	return collections;
