@@ -16,7 +16,7 @@ newsRouter.get("/get-items", async (req, res) => {
 
 newsRouter.get("/count-items", async (req, res) => {
 	const data = await mongoManager.countNewsItems();
-	res.send({ data: data });
+	res.send({ count: data });
 });
 
 module.exports = newsRouter;
