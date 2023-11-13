@@ -8,6 +8,8 @@ dotenv.config();
 
 galleryRouter.get("/get-collection", async (req, res) => {
 	const collectionName = req.query.collection ? req.query.collection : "";
+	const startIndex = req.query.startIndex ? req.query.startIndex : 0;
+	const limit = req.query.limit ? req.query.limit : -1;
 
 	if (collectionName === "") {
 		res.send({
@@ -15,7 +17,11 @@ galleryRouter.get("/get-collection", async (req, res) => {
 			error: "ERROR: a collection name has not been passed with the endpoint call",
 		});
 	} else {
-		const data = await mongoManager.getGalleryCollection(collectionName);
+		const data = await mongoManager.getGalleryCollection(
+			collectionName,
+			startIndex,
+			limit
+		);
 		res.send({ data: data });
 	}
 });

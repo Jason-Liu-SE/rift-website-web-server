@@ -18,13 +18,20 @@ exports.connect = () => {
 	}
 };
 
-exports.getGalleryCollection = async (collectionName) => {
+// limit = -1 implies that no limit was specified. Assumed all documents are desired
+exports.getGalleryCollection = async (collectionName, startIndex, limit) => {
 	const model = gallerySchema.getModel(collectionName);
 	let galleryCollection;
 
 	try {
+		if (limit === -1) {
+			await model.countDocuments({}).then(async (data) => (limit = data));
+		}
+
 		await model
 			.find({})
+			.skip(startIndex)
+			.limit(limit)
 			.then(async (data) => {
 				galleryCollection = data;
 			})
