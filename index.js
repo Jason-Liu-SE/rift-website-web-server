@@ -13,6 +13,19 @@ const port = process.env.PORT || 4000;
 
 mongoManger.connect();
 
+app.use((req, res, next) => {
+	res.header("Access-Control-Allow-Origin", process.env.FRONTEND_URL);
+	res.header("Access-Control-Allow-Methods", "GET,PUT,OPTIONS");
+	res.header(
+		"Access-Control-Allow-Headers",
+		"Access-Control-Allow-Origin, Content-Type, Accept, Accept-Language, Origin, User-Agent"
+	);
+	if (req.method === "OPTIONS") {
+		res.sendStatus(204);
+	} else {
+		next();
+	}
+});
 app.use("/map", mapRouter);
 app.use("/news", newsRouter);
 app.use("/downloads", downloadsRouter);

@@ -10,6 +10,7 @@ exports.connect = () => {
 	try {
 		mongoose.connect(process.env.MONGODB_CONNECTION_STRING);
 		mongoose.pluralize(null);
+		mongoose.set("autoCreate", false);
 
 		console.log("Connected to MongoDB");
 	} catch (e) {
