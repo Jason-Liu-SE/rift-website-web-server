@@ -75,7 +75,11 @@ exports.countGalleryCollectionItems = async (collectionName) => {
 	return galleryCollectionCount;
 };
 
+// Pre:
 // limit = -1 implies that no limit was specified. Assumed all documents are desired
+//
+// Post:
+// The specified number of news items, starting at the startIndex, are sorted by date (newest to oldest) and returned
 exports.getNewsItems = async (startIndex, limit) => {
 	const model = newsSchema.model;
 	let newsItems;
@@ -87,6 +91,7 @@ exports.getNewsItems = async (startIndex, limit) => {
 
 		await model
 			.find({})
+			.sort({ date: -1 })
 			.skip(startIndex)
 			.limit(limit)
 			.then(async (data) => {
